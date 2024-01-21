@@ -49,8 +49,8 @@ export default function App() {
         }}
       >
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="FoodBankScreen" component={FoodBankScreen} />
-        <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
+        <Stack.Screen name="FoodBank" component={FoodBankScreen} />
+        <Stack.Screen name="Restaurant" component={RestaurantScreen} />
         <Stack.Screen name="SelectedRestaurants" component={SelectedRestaurantsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
