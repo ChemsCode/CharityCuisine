@@ -1,15 +1,17 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
 import MapComponent from '../components/foodbanks/MapComponent';
 import RestaurantListComponent from '../components/foodbanks/RestaurantListComponent';
 import CheckoutComponent from '../components/foodbanks/CheckoutComponent';
+import AddComponent from '../components/foodbanks/AddFoodBank';
 
 const Tab = createBottomTabNavigator();
 
 const FoodBankScreen = () => {
   return (
+    <View style={{ flex: 1 }}>
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
@@ -20,6 +22,8 @@ const FoodBankScreen = () => {
               iconName = 'map';
             } else if (route.name === 'Checkout') {
               iconName = 'shopping-cart';
+            } else if (route.name === 'Add') {
+              iconName = 'add';
             }
 
             return <MaterialIcons name={iconName} size={size} color={color} />;
@@ -39,12 +43,14 @@ const FoodBankScreen = () => {
           },
           headerShown: false,
         })}
-      >
-        <Tab.Screen name="List" component={RestaurantListComponent} />
-        <Tab.Screen name="Map" component={MapComponent} />
-        <Tab.Screen name="Checkout" component={CheckoutComponent} />
-      </Tab.Navigator>
-  );
-}
-
-export default FoodBankScreen;
+        >
+          <Tab.Screen name="List" component={RestaurantListComponent} />
+          <Tab.Screen name="Map" component={MapComponent} />
+          <Tab.Screen name="Checkout" component={CheckoutComponent} />
+          <Tab.Screen name="Add" component={AddComponent} />
+        </Tab.Navigator>
+      </View>
+    );
+  }
+  
+  export default FoodBankScreen;

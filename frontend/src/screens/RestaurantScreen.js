@@ -7,6 +7,7 @@ import LeaderboardComponent from '../components/foodbanks/LeaderboardComponent';
 import ApiManager from '../ApiManager/ApiManager';
 import { StatusBar } from 'react-native';
 import { FlatList, TouchableHighlight } from 'react-native-gesture-handler';
+import AddComponent from '../components/restaurants/AddComponent';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,11 +18,13 @@ const RestaurantScreen = () => {
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
                     if (route.name === 'List') {
-                        iconName = 'restaurant-menu'; // Example icon for List
+                        iconName = 'restaurant-menu';
                     } else if (route.name === 'Camera') {
-                        iconName = 'camera-alt'; // Example icon for Camera
+                        iconName = 'camera-alt'; 
                     } else if (route.name === 'Leaderboard') {
-                        iconName = 'leaderboard'; // Example icon for Leaderboard
+                        iconName = 'leaderboard';
+                    } else if (route.name === 'Add') {
+                        iconName = 'add';
                     }
 
                     // Return the icon component
@@ -46,6 +49,7 @@ const RestaurantScreen = () => {
             <Tab.Screen name="List" component={ListScreen} />
             <Tab.Screen name="Camera" component={CameraComponent} />
             <Tab.Screen name="Leaderboard" component={LeaderboardComponent} />
+            <Tab.Screen name="Add" component={AddComponent} />
         </Tab.Navigator>
     );
 };
@@ -146,7 +150,7 @@ const ListScreen = () => {
         <View style={styles.container}>
             {foodbanks && (
                 foodbanks.map((foodbank) => (
-                    <View style={styles.itemContainer} key={foodbank.id}>
+                    <View style={styles.itemContainer} key={foodbank.fb_id}>
                         <TouchableHighlight style={styles.itemTouchable} onPress={() => {}}>
                             <View style={styles.item}>
                                 <View>

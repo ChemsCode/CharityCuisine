@@ -13,7 +13,7 @@ const Home = ({ navigation }) => {
     return (
         <View style={styles.container}>
 
-            <Text style={styles.title}>Welcome to Our App!</Text>
+            <Text style={styles.title}>Charity Cuisine</Text>
             <Text style={styles.tagline}>Connecting you with the best places to eat and help.</Text>
 
             <Text style={styles.subtitle}>Choose an Option:</Text>
