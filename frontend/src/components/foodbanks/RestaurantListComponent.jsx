@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Alert, Text, Pressable, Image, TouchableOpacity, FlatList, SafeAreaView, StyleSheet, StatusBar } from 'react-native';
 import { FAB } from '@rneui/themed';
+import { useNavigation } from '@react-navigation/native';
 
 const ExpandableListItem = ({ item, onSelect, isPickedUp }) => {
   const [expanded, setExpanded] = useState(false);
@@ -20,6 +21,14 @@ const ExpandableListItem = ({ item, onSelect, isPickedUp }) => {
   const handlePickup = () => {
     onSelect(item.id);
     Alert.alert('Item picked up!');
+  };
+
+  const cancelPickup = () => {
+    if (isPickedUp) {
+      // Remove the item from the pickup list
+      onSelect(item.id);
+      Alert.alert('Item canceled.');
+    }
   };
 
   return (
@@ -45,13 +54,22 @@ const ExpandableListItem = ({ item, onSelect, isPickedUp }) => {
           <Text style={styles.textContent}>
             {item.content}
           </Text>
-          <Pressable
-            style={[styles.button, isPickedUp && styles.disabledButton]}
-            onPress={handlePickup}
-            disabled={isPickedUp}
-          >
-            <Text style={styles.buttonText}> Pickup </Text>
-          </Pressable>
+          <View style={styles.buttonsContainer}>
+            <Pressable
+                style={[styles.cancelButton, !isPickedUp && styles.disabledButton]}
+                onPress={cancelPickup}
+                disabled={!isPickedUp}
+            >
+                <Text style={styles.buttonText}> Cancel </Text>
+            </Pressable>
+            <Pressable
+                style={[styles.button, isPickedUp && styles.disabledButton]}
+                onPress={handlePickup}
+                disabled={isPickedUp}
+            >
+                <Text style={styles.buttonText}> Pickup </Text>
+            </Pressable>
+          </View>
         </View>
       )}
     </View>
@@ -61,7 +79,8 @@ const ExpandableListItem = ({ item, onSelect, isPickedUp }) => {
 const RestaurantListComponent = () => {
   const [selectedItemIds, setSelectedItemIds] = useState([]);
   const [visible, setVisible] = React.useState(true);
-  
+  const navigation = useNavigation();
+
   const restaurants = [
     { id: 1, name: 'Green Delight', content: "Organic food made easy." },
     { id: 2, name: 'Noodles and Company', content: "We sell noodles" },
@@ -69,7 +88,22 @@ const RestaurantListComponent = () => {
   ];
 
   const handleSelect = (itemId) => {
-    setSelectedItemIds((prevIds) => [...prevIds, itemId]);
+    // Check if the item is already in the pickup list
+    if (selectedItemIds.includes(itemId)) {
+      // Remove the item from the pickup list
+      setSelectedItemIds((prevIds) => prevIds.filter((id) => id !== itemId));
+    } else {
+      // Add the item to the pickup list
+      setSelectedItemIds((prevIds) => [...prevIds, itemId]);
+    }
+  };
+
+  useEffect(() => {
+    setVisible(selectedItemIds.length > 0);
+  }, [selectedItemIds]);
+
+  const navigateToSelectedItems = () => {
+    navigation.navigate('SelectedRestaurants', { selectedIds: selectedItemIds });
   };
 
   const isPickedUp = (itemId) => selectedItemIds.includes(itemId);
@@ -90,14 +124,12 @@ const RestaurantListComponent = () => {
         renderItem={renderExtendedRestaurant}
         keyExtractor={(item) => item.id.toString()}
       />
-      <View style={styles.selectedItemsContainer}>
-        <Text style={styles.selectedItemsTitle}>Selected Items:</Text>
-        <Text>{selectedItemIds.join(', ')}</Text>
-      </View>
       <FAB
         visible={visible}
-        icon={{ name: 'add', color: 'white' }}
+        icon={{ name: 'shopping-cart', color: 'white' }}
         color="green"
+        style={styles.fab}
+        onPress={navigateToSelectedItems}
       />
     </SafeAreaView>
   );
@@ -144,8 +176,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: "#666",
         marginLeft: 20,
-        flexDirection: "row",
-        justifyContent: "space-between",
     },
     itemDesc: {
         fontSize: 14,
@@ -165,9 +195,9 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         elevation: 3,
         backgroundColor: '#1b9ae3',
-        marginRight: 20,
         marginTop: 10,
         marginBottom: 10,
+        marginLeft: 10,
       },
     buttonText: {
         fontSize: 16,
@@ -175,8 +205,33 @@ const styles = StyleSheet.create({
         color: 'white',
       },
     disabledButton: {
-        backgroundColor: '#e6e6e6', // You can choose a suitable disabled button color
+        backgroundColor: '#e6e6e6', 
     },
+    buttonsContainer: {
+        justifyContent: 'flex-end',
+        flexDirection: 'row',
+        marginRight: 20,
+    },
+    cancelButton: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 8,
+        paddingHorizontal: 14,
+        borderRadius: 8,
+        elevation: 3,
+        backgroundColor: '#bfbfbf',
+        marginTop: 10,
+        marginBottom: 10,
+        marginLeft: 10,
+    },
+    fab: {
+        width: 60,  
+        height: 60,   
+        borderRadius: 30,                                           
+        position: 'absolute',                                          
+        bottom: 10,                                                    
+        right: 10, 
+    }
 });
 
 export default RestaurantListComponent;
