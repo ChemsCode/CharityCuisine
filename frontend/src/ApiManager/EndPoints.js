@@ -6,6 +6,8 @@ const ENDPOINTS = {
     RESTAURANT_INFO: (restaurant_id) => '/restaurant/info/' + restaurant_id,
     UPLOAD_IMAGE: () => '/models/upload',
     ALL_FOOD_BANKS: () => '/banks/all_food_banks',
+    ADD_FOOD_BANK: () => '/banks/add_food_bank',
+    ADD_RESTAURANT: () => '/restaurant/add_restaurant',
     
 }
 

@@ -30,6 +30,16 @@ class ApiManager{
         const url = BASE_URL + ENDPOINTS.ALL_FOOD_BANKS();
         return ApiMethods.get(url);
     }
+
+    static addFoodBank = (data) => {
+        const url = BASE_URL + ENDPOINTS.ADD_FOOD_BANK();
+        return ApiMethods.post(url, data);
+    }
+
+    static addRestaurant = (data) => {
+        const url = BASE_URL + ENDPOINTS.ADD_RESTAURANT();
+        return ApiMethods.post(url, data);
+    }
     
 }
 

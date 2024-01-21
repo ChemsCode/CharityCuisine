@@ -15,3 +15,9 @@ def get_all_food_banks():
     data, count = supabase.table('foodbank').select('*').execute()
     return make_response(jsonify(data), 200)
 
+@bp.route('/add_food_bank', methods=['POST'])
+def add_food_bank():
+    supabase = create_client(url, key)
+    data = request.get_json()
+    supabase.table('foodbank').insert(data).execute()
+    return make_response(jsonify(data), 200)
