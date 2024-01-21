@@ -23,7 +23,9 @@
     "react-native-config": "^1.5.1",
     "react-native-dotenv": "^3.4.9",
     "react-native-maps": "^1.8.0",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "expo-media-library": "~15.9.1",
+    "expo-camera": "~14.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
