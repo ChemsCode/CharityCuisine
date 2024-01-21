@@ -40,6 +40,11 @@ class ApiManager{
         const url = BASE_URL + ENDPOINTS.ADD_RESTAURANT();
         return ApiMethods.post(url, data);
     }
+
+    static allOrders = () => {
+        const url = BASE_URL + ENDPOINTS.ALL_ORDERS();
+        return ApiMethods.get(url);
+    }
     
 }
 

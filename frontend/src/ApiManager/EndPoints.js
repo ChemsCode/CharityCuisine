@@ -8,6 +8,7 @@ const ENDPOINTS = {
     ALL_FOOD_BANKS: () => '/banks/all_food_banks',
     ADD_FOOD_BANK: () => '/banks/add_food_bank',
     ADD_RESTAURANT: () => '/restaurant/add_restaurant',
+    ALL_ORDERS: () => '/restaurant/restaurant_order_info',
     
 }
 
