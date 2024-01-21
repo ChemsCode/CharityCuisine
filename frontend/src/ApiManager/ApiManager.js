@@ -26,17 +26,6 @@ class ApiManager{
         return ApiMethods.get(url);
     }
     
-    static uploadImage = (image) => {
-        const url = BASE_URL + ENDPOINTS.UPLOAD_IMAGE();
-        let formData = new FormData();
-        formData.append('file', image);
-        
-        return axios.post(url, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-    }
 }
 
 export default ApiManager;
