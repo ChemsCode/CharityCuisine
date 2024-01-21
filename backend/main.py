@@ -3,12 +3,14 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from blueprints.modelBlueprint import bp as modelsBP
 from blueprints.restaurantBlueprint import bp as restaurantBP
+from blueprints.foodBankBlueprint import bp as foodBankBP
 
 def create_app():
     load_dotenv()
     
     app = Flask(__name__)
     app.register_blueprint(modelsBP)
+    app.register_blueprint(foodBankBP)
     app.register_blueprint(restaurantBP)
 
         

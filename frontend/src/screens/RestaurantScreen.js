@@ -1,37 +1,134 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CameraComponent from '../components/restaurants/CameraComponent';
 import LeaderboardComponent from '../components/foodbanks/LeaderboardComponent';
+import ApiManager from '../ApiManager/ApiManager';
+import { StyleSheet, StatusBar } from 'react-native';
+import { FlatList, TouchableHighlight } from 'react-native-gesture-handler';
 
 const Tab = createBottomTabNavigator();
 
-const RestaurantScreen = () => {
+const RestaurantScreen = () => {    
     return (
         <Tab.Navigator>
-            <Tab.Screen name="List" component={ListScreen} />
-            <Tab.Screen name="Camera" component={CameraComponent} />
+            <Tab.Screen name="Food Banks" component={ListScreen} />
+            <Tab.Screen name="Capture Leftovers" component={CameraComponent} />
             <Tab.Screen name="Leaderboard" component={LeaderboardComponent} />
         </Tab.Navigator>
     );
 };
 
 const ListScreen = () => {
-    return (
-        <View>
-            <Text>List of something</Text>
-            {/* Your list component goes here */}
-        </View>
-    );
-};
+    const [foodbanks, setFoodbanks] = useState(null);
 
-const LeaderboardScreen = () => {
+    useEffect(() => {
+        ApiManager.allFoodBanks()
+            .then((res) => {
+                setFoodbanks(res[1]);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            marginTop: StatusBar.currentHeight || 0,
+        },
+        itemContainer: {
+            backgroundColor: "white",
+            borderRadius: 10,
+            elevation: 3,
+        },
+        item: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            backgroundColor: '#ffff',
+            padding: 20,
+        },
+        title: {
+            fontSize: 24,
+        },
+        separator: {
+            height: 1,
+            backgroundColor: '#dddddd',
+        },
+        img: {
+            width: 50,
+            height: 50,
+        },
+        itemTouchable: {
+            borderRadius: 10,
+            overflow: "hidden",
+        },
+        itemTitle: {
+            fontSize: 24,
+            color: "#333",
+            fontWeight: "bold",
+        },
+        itemContent: {
+            marginBottom: 10,
+            fontSize: 18,
+            color: "#666",
+            marginLeft: 0,
+        },
+        itemDesc: {
+            fontSize: 14,
+            color: "green",
+            marginTop: 5,
+            fontStyle: "italic",
+        },
+        textContent: {
+            fontSize: 18,
+            color: "#666",
+        },
+        button: {
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingVertical: 8,
+            paddingHorizontal: 14,
+            borderRadius: 8,
+            elevation: 3,
+            backgroundColor: '#1b9ae3',
+            marginTop: 10,
+            marginBottom: 10,
+            marginLeft: 10,
+          },
+        buttonText: {
+            fontSize: 16,
+            letterSpacing: 0.25,
+            color: 'white',
+          },
+        disabledButton: {
+            backgroundColor: '#e6e6e6', 
+        },
+        buttonsContainer: {
+            justifyContent: 'flex-end',
+            flexDirection: 'row',
+            marginRight: 20,
+        },
+    });
+
     return (
-        <View>
-            <Text>Leaderboard Tab</Text>
-            {/* Your leaderboard component goes here */}
+        <View style={styles.container}>
+            {foodbanks && (
+                foodbanks.map((foodbank) => (
+                    <View style={styles.itemContainer} key={foodbank.id}>
+                        <TouchableHighlight style={styles.itemTouchable} onPress={() => {}}>
+                            <View style={styles.item}>
+                                <View>
+                                    <Text style={styles.itemTitle}>{foodbank.name}</Text>
+                                    <Text style={styles.itemContent}>{foodbank.location}</Text>
+                                </View>
+                            </View>
+                        </TouchableHighlight>
+                    </View>
+                ))
+            )}
         </View>
     );
-};
+}
 
 export default RestaurantScreen;

@@ -4,7 +4,6 @@ import * as MediaLibrary from "expo-media-library";
 import { View } from "react-native";
 import Button from "../general/Button";
 import { StyleSheet, Text, Image } from "react-native";
-import ApiManager from "./../../ApiManager/ApiManager";
 import { API_URL } from '@env';
 
 export default CameraComponent = () => {

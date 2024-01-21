@@ -22,7 +22,6 @@ const FoodBankScreen = () => {
               iconName = 'shopping-cart';
             }
 
-            // Return the icon component
             return <MaterialIcons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: 'green',
@@ -47,7 +46,5 @@ const FoodBankScreen = () => {
       </Tab.Navigator>
   );
 }
-
-// ... rest of your code
 
 export default FoodBankScreen;

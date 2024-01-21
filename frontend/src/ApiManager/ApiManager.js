@@ -25,6 +25,11 @@ class ApiManager{
         const url = BASE_URL + ENDPOINTS.RESTAURANT_INFO(restaurant_id);
         return ApiMethods.get(url);
     }
+
+    static allFoodBanks = () => {
+        const url = BASE_URL + ENDPOINTS.ALL_FOOD_BANKS();
+        return ApiMethods.get(url);
+    }
     
 }
 

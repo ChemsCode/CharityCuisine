@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Alert, Text, Pressable, Image, TouchableOpacity, FlatList, SafeAreaView, StyleSheet, StatusBar } from 'react-native';
 import { FAB } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
+import ApiManager from "./../../ApiManager/ApiManager";
+
 
 const ExpandableListItem = ({ item, onSelect, isPickedUp }) => {
   const [expanded, setExpanded] = useState(false);
@@ -80,12 +82,15 @@ const RestaurantListComponent = () => {
   const [selectedItemIds, setSelectedItemIds] = useState([]);
   const [visible, setVisible] = React.useState(true);
   const navigation = useNavigation();
+  const [restaurants, setRestaurants] = useState(null);
 
-  const restaurants = [
-    { id: 1, name: 'Green Delight', content: "Organic food made easy." },
-    { id: 2, name: 'Noodles and Company', content: "We sell noodles" },
-    { id: 3, name: 'Canned Cuisine', content: "Want cans? We got em." },
-  ];
+
+  useEffect(() => {
+    ApiManager.allRestaurants().then((response) => {
+      setRestaurants(response[1]);
+      console.log(restaurants);
+    });
+  }, []);
 
   const handleSelect = (itemId) => {
     // Check if the item is already in the pickup list
@@ -114,6 +119,7 @@ const RestaurantListComponent = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {restaurants && (
       <FlatList
         ItemSeparatorComponent={
           <View
@@ -122,8 +128,9 @@ const RestaurantListComponent = () => {
         }
         data={restaurants}
         renderItem={renderExtendedRestaurant}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.restaurant_id.toString()}
       />
+      )}
       <FAB
         visible={visible}
         icon={{ name: 'shopping-cart', color: 'white' }}
