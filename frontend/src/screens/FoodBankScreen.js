@@ -2,29 +2,20 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MapComponent from '../components/foodbanks/MapComponent';
+import RestaurantListComponent from '../components/foodbanks/RestaurantListComponent';
+import CheckoutComponent from '../components/foodbanks/CheckoutComponent';
 
 const Tab = createBottomTabNavigator();
 
 const FoodBankScreen = () => {
-
   return (
       <Tab.Navigator>
-        <Tab.Screen name="List" component={ListScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+        <Tab.Screen name="List" component={RestaurantListComponent} />
         <Tab.Screen name="Map" component={MapComponent} />
+        <Tab.Screen name="Checkout" component={CheckoutComponent} />
       </Tab.Navigator>
   );
 }
-
-
-const ListScreen = () => {
-    return (
-        <View>
-            <Text>List of something</Text>
-            {/* Your list component goes here */}
-        </View>
-    );
-};
 
 const SettingsScreen = () => {
     return (

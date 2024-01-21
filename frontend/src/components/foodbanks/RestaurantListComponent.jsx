@@ -1,90 +1,96 @@
 import React, { useState } from 'react';
 import { View, Alert, Text, Pressable, Image, TouchableOpacity, FlatList, SafeAreaView, StyleSheet, StatusBar } from 'react-native';
 
+const ExpandableListItem = ({ item, onSelect }) => {
+  const [expanded, setExpanded] = useState(false);
 
-const ExpandableListItem = ({ item }) => {
-    const [expanded, setExpanded] = useState(false);
+  const images = {
+    1: require('../../../assets/restaurant1.jpg'),
+    2: require('../../../assets/restaurant2.jpg'),
+    3: require('../../../assets/restaurant3.jpg'),
+    4: require('../../../assets/restaurant4.jpg'),
+    5: require('../../../assets/restaurant5.jpg'),
+  };
 
-    const images = {
-        1: require('../../../assets/restaurant1.jpg'),
-        2: require('../../../assets/restaurant2.jpg'),
-        3: require('../../../assets/restaurant3.jpg'),
-        4: require('../../../assets/restaurant4.jpg'),
-        5: require('../../../assets/restaurant5.jpg'),
-    };
+  const toggleExpand = () => {
+    setExpanded(!expanded);
+  };
 
-    const toggleExpand = () => {
-        setExpanded(!expanded);
-    };
+  const handlePickup = () => {
+    onSelect(item.id);
+    Alert.alert('Item picked up!');
+  };
 
-    return (
-        <View style={styles.itemContainer}>
-            <TouchableOpacity
-                onPress={toggleExpand}
-                style={styles.itemTouchable}
-            >
-                <View style={styles.item}>
-                    <View>
-                        <Text style={styles.itemTitle}>
-                            {item.name}
-                        </Text>
-                        <Text style={styles.itemDesc}> 
-                            Ready for pickup
-                        </Text>
-                    </View>
-                    <Image source={images[item.id]} style={styles.img} />
-                </View>
-            </TouchableOpacity>
-            {expanded && (
-                <View style={styles.itemContent}> 
-                    <Text style={styles.textContent}>
-                        {item.content}
-                    </Text>
-                    <Pressable
-                        style={styles.button}
-                        onPress={() => Alert.alert('Simple Button pressed')}
-                    >
-                        <Text style={styles.buttonText}> Pickup </Text>
-                    </Pressable>
-                </View>
-            )}
+  return (
+    <View style={styles.itemContainer}>
+      <TouchableOpacity
+        onPress={toggleExpand}
+        style={styles.itemTouchable}
+      >
+        <View style={styles.item}>
+          <View>
+            <Text style={styles.itemTitle}>
+              {item.name}
+            </Text>
+            <Text style={styles.itemDesc}>
+              Ready for pickup
+            </Text>
+          </View>
+          <Image source={images[item.id]} style={styles.img} />
         </View>
-    );
+      </TouchableOpacity>
+      {expanded && (
+        <View style={styles.itemContent}>
+          <Text style={styles.textContent}>
+            {item.content}
+          </Text>
+          <Pressable
+            style={styles.button}
+            onPress={handlePickup}
+          >
+            <Text style={styles.buttonText}> Pickup </Text>
+          </Pressable>
+        </View>
+      )}
+    </View>
+  );
 };
 
-
 const RestaurantListComponent = () => {
-    const restaurants = [
-        { id: 1, name: 'Green Delight', content: "Organic food made easy." },
-        { id: 2, name: 'Noodles and Company', content: "We sell noodles" },
-        { id: 3, name: 'Canned Cuisine', content: "Want cans? We got em." },
-    ];
+  const [selectedItemIds, setSelectedItemIds] = useState([]);
 
-    const renderRestaurant = ({ item }) => (
-        <View style={styles.item}>
-            <Text style={styles.title}>{item.name}</Text>
-            <Image source={images[item.id]} style={styles.img} />
-        </View>
-    );
+  const restaurants = [
+    { id: 1, name: 'Green Delight', content: "Organic food made easy." },
+    { id: 2, name: 'Noodles and Company', content: "We sell noodles" },
+    { id: 3, name: 'Canned Cuisine', content: "Want cans? We got em." },
+  ];
 
-    const renderExtendedRestaurant = ({ item }) => (
-        <ExpandableListItem item={item} />
-    );
+  const handleSelect = (itemId) => {
+    setSelectedItemIds((prevIds) => [...prevIds, itemId]);
+  };
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <FlatList
-                ItemSeparatorComponent={
-                    <View
-                        style={[styles.separator]}
-                    />
-                }
-                data={restaurants}
-                renderItem={renderExtendedRestaurant}
-                keyExtractor={(item) => item.id.toString()}
-            />
-        </SafeAreaView>
-    );
+  const renderExtendedRestaurant = ({ item }) => (
+    <ExpandableListItem item={item} onSelect={handleSelect} />
+  );
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        ItemSeparatorComponent={
+          <View
+            style={[styles.separator]}
+          />
+        }
+        data={restaurants}
+        renderItem={renderExtendedRestaurant}
+        keyExtractor={(item) => item.id.toString()}
+      />
+      <View style={styles.selectedItemsContainer}>
+        <Text style={styles.selectedItemsTitle}>Selected Items:</Text>
+        <Text>{selectedItemIds.join(', ')}</Text>
+      </View>
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -144,17 +150,17 @@ const styles = StyleSheet.create({
     button: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 12,
-        paddingHorizontal: 32,
-        borderRadius: 4,
+        paddingVertical: 8,
+        paddingHorizontal: 14,
+        borderRadius: 8,
         elevation: 3,
-        backgroundColor: 'black',
-        margin: 5,
+        backgroundColor: '#1b9ae3',
+        marginRight: 20,
+        marginTop: 10,
+        marginBottom: 10,
       },
     buttonText: {
         fontSize: 16,
-        lineHeight: 21,
-        fontWeight: 'bold',
         letterSpacing: 0.25,
         color: 'white',
       },

@@ -2,7 +2,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import ApiManager from './src/ApiManager/ApiManager'
 // environment variables
-import RestaurantListComponent from './src/components/foodbanks/RestaurantListComponent';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/screens/Home';
@@ -52,4 +51,3 @@ const styles = StyleSheet.create({
     height: '100%'
   }
 });
-``
