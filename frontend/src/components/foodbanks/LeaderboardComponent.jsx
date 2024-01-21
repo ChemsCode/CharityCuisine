@@ -47,56 +47,64 @@ const badgeColors = {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         padding: 20,
         backgroundColor: '#f5f5f5'
     },
     header: {
-        fontSize: 24,
+        fontSize: 28,
         fontWeight: 'bold',
-        marginBottom: 10,
-        alignSelf: 'center'
+        marginBottom: 15,
+        color: '#333',
+        alignSelf: 'center',
+        textTransform: 'uppercase'
     },
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 5,
-        justifyContent: 'center'
-    },
-    label: {
-        fontWeight: 'bold'
+        justifyContent: 'center',
+        marginBottom: 15,
     },
     starRatingContainer: {
         flexDirection: 'row'
     },
     star: {
-        color: '#ffd700'
+        color: '#ffd700',
+        fontSize: 22, // Larger star icons
     },
     badge: {
-        borderRadius: 12,
-        paddingVertical: 7,
-        paddingHorizontal: 30,
-        marginLeft: 10
+        borderRadius: 16,
+        paddingVertical: 10,
+        paddingHorizontal: 35,
+        backgroundColor: '#4a90e2', // Changed to a more vivid color
     },
     badgeText: {
         color: '#fff',
-        fontWeight: 'bold'
+        fontWeight: '600',
+        fontSize: 16, // Increased font size
     },
     subHeader: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginTop: 15,
-        marginBottom: 5,
-        alignSelf: 'center'
+        fontSize: 22,
+        fontWeight: '600',
+        marginTop: 20,
+        marginBottom: 10,
+        alignSelf: 'center',
+        color: '#333'
     },
     listItem: {
         backgroundColor: '#fff',
-        padding: 20, // Increased padding for a bigger card
-        marginTop: 10,
-        borderRadius: 10, // Slightly larger radius for aesthetics
-        alignItems: 'center', // Center items horizontally
-        justifyContent: 'center', // Center items vertically
-        fontSize: 18, // Bigger font size for text
-        textAlign: 'center', // Center text horizontally
+        padding: 25, // Even more padding for a larger card
+        marginVertical: 8,
+        borderRadius: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 20,
+        color: '#333', // Darker text color
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     }
 });
 
