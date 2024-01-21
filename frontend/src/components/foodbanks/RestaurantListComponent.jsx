@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, Alert, Text, Pressable, Image, TouchableOpacity, FlatList, SafeAreaView, StyleSheet, StatusBar } from 'react-native';
+import { FAB } from '@rneui/themed';
 
-const ExpandableListItem = ({ item, onSelect }) => {
+const ExpandableListItem = ({ item, onSelect, isPickedUp }) => {
   const [expanded, setExpanded] = useState(false);
 
   const images = {
@@ -45,8 +46,9 @@ const ExpandableListItem = ({ item, onSelect }) => {
             {item.content}
           </Text>
           <Pressable
-            style={styles.button}
+            style={[styles.button, isPickedUp && styles.disabledButton]}
             onPress={handlePickup}
+            disabled={isPickedUp}
           >
             <Text style={styles.buttonText}> Pickup </Text>
           </Pressable>
@@ -58,7 +60,8 @@ const ExpandableListItem = ({ item, onSelect }) => {
 
 const RestaurantListComponent = () => {
   const [selectedItemIds, setSelectedItemIds] = useState([]);
-
+  const [visible, setVisible] = React.useState(true);
+  
   const restaurants = [
     { id: 1, name: 'Green Delight', content: "Organic food made easy." },
     { id: 2, name: 'Noodles and Company', content: "We sell noodles" },
@@ -69,8 +72,10 @@ const RestaurantListComponent = () => {
     setSelectedItemIds((prevIds) => [...prevIds, itemId]);
   };
 
+  const isPickedUp = (itemId) => selectedItemIds.includes(itemId);
+
   const renderExtendedRestaurant = ({ item }) => (
-    <ExpandableListItem item={item} onSelect={handleSelect} />
+    <ExpandableListItem item={item} onSelect={handleSelect} isPickedUp={isPickedUp(item.id)} />
   );
 
   return (
@@ -89,6 +94,11 @@ const RestaurantListComponent = () => {
         <Text style={styles.selectedItemsTitle}>Selected Items:</Text>
         <Text>{selectedItemIds.join(', ')}</Text>
       </View>
+      <FAB
+        visible={visible}
+        icon={{ name: 'add', color: 'white' }}
+        color="green"
+      />
     </SafeAreaView>
   );
 };
@@ -164,7 +174,9 @@ const styles = StyleSheet.create({
         letterSpacing: 0.25,
         color: 'white',
       },
-
+    disabledButton: {
+        backgroundColor: '#e6e6e6', // You can choose a suitable disabled button color
+    },
 });
 
 export default RestaurantListComponent;
