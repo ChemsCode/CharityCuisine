@@ -31,7 +31,23 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
+      <Stack.Navigator
+        initialRouteName='Home'
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#fff', // White background
+            elevation: 0, // Removes shadow on Android
+            shadowOpacity: 0, // Removes shadow on iOS
+            borderBottomWidth: 0, // Removes bottom border line
+          },
+          headerTintColor: '#333', // Dark color for the header text and icons
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerTitleAlign: 'center', // Center align the header title
+          headerBackTitleVisible: false, // Hide back button text (iOS specific)
+        }}
+      >
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="FoodBankScreen" component={FoodBankScreen} />
         <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
@@ -40,16 +56,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  map: {
-    width: '100%',
-    height: '100%'
-  }
-});
