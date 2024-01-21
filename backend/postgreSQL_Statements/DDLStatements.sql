@@ -1,3 +1,9 @@
+-- Drop the public schema and all of its contents
+DROP SCHEMA public CASCADE;
+
+-- Recreate the public schema
+CREATE SCHEMA public;
+
 -- Table for Restaurant
 CREATE TABLE Restaurant (
     restaurant_id SERIAL PRIMARY KEY,
@@ -12,8 +18,9 @@ CREATE TABLE Restaurant (
 CREATE TABLE FoodItem (
     food_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    type VARCHAR(255),
-    quantity INT
+    type VARCHAR(255) CHECK (type IN ('pasta', 'canned', 'beans', 'canned', 'vegetables', 'rice', 'tuna')),
+    quantity INT,
+    taken BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 -- Table for Order
