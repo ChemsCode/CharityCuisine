@@ -25,33 +25,43 @@ const AddComponent = () => {
     }
 
     const handleSubmit = () => {
-        // Handle submit logic here
-    };
+        const data = {
+            name: input1,
+            opening_hour: input2,
+            closing_hour: input3,
+            location: input4,
+        };
+        // ApiManager.addRestaurant(data);
+        setInput1('');
+        setInput2('');
+        setInput3('');
+        setInput4('');
+    }
 
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Add a New Restaurant</Text>
             <TextInput
                 style={styles.input}
-                placeholder="Foodbank Name"
+                placeholder="Restaurant Name"
                 value={input1}
                 onChangeText={handleInputChange1}
             />
             <TextInput
                 style={styles.input}
-                placeholder="Location"
+                placeholder="Opening Hour"
                 value={input2}
                 onChangeText={handleInputChange2}
             />
             <TextInput
                 style={styles.input}
-                placeholder="Phone Number"
+                placeholder="Closing Hour"
                 value={input3}
                 onChangeText={handleInputChange3}
             />
             <TextInput
                 style={styles.input}
-                placeholder="Email"
+                placeholder="Location"
                 value={input4}
                 onChangeText={handleInputChange4}
             />

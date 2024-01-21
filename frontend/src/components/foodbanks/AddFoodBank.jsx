@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
+import ApiManager from '../../ApiManager/ApiManager';
 
 
 const AddComponent = () => {
@@ -15,8 +16,16 @@ const AddComponent = () => {
     };
 
     const handleSubmit = () => {
-        // Handle submit logic here
-    };
+        const data = {
+            name: input1,
+            location: input2,
+        };
+        // ApiManager.addFoodBank(data);
+        setInput1('');
+        setInput2('');
+    }
+
+        
 
     return (
         <View style={styles.container}>
