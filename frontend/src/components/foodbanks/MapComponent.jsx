@@ -3,7 +3,6 @@ import { View, StyleSheet } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 const MapComponent = () => {
-    // Updated coordinates for region
     const [region, setRegion] = useState({
         latitude: 45.508888,
         longitude: -73.561668,
@@ -27,17 +26,10 @@ const MapComponent = () => {
             title: 'Canned Cuisine',
             description: 'Want cans? We got em.',
         },
-        // Add more markers as needed
     ];
 
     const onRegionChange = (newRegion) => {
-        // Update the state with the new region
-        setRegion({
-            latitude: newRegion.latitude,
-            longitude: newRegion.longitude,
-            latitudeDelta: newRegion.latitudeDelta,
-            longitudeDelta: newRegion.longitudeDelta,
-        });
+        console.log(newRegion);
     };
 
     return (
@@ -46,7 +38,7 @@ const MapComponent = () => {
                 style={StyleSheet.absoluteFill}
                 provider={PROVIDER_GOOGLE}
                 initialRegion={region}
-                region={region} // Use the state's region as the initial region
+                region={region} 
                 showsUserLocation
                 showsMyLocationButton
                 onRegionChangeComplete={onRegionChange}

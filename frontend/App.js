@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import ApiManager from './src/ApiManager/ApiManager'
+// environment variables
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/screens/Home';
 import FoodBankScreen from "./src/screens/FoodBankScreen";
 import RestaurantScreen from "./src/screens/RestaurantScreen";
+import SelectedRestaurantsScreen from './src/screens/SelectedRestaurantsScreen';
 
 const Stack = createStackNavigator();
 
@@ -33,6 +35,7 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="FoodBankScreen" component={FoodBankScreen} />
         <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
+        <Stack.Screen name="SelectedRestaurants" component={SelectedRestaurantsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -50,4 +53,3 @@ const styles = StyleSheet.create({
     height: '100%'
   }
 });
-``
