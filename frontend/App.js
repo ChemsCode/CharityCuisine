@@ -22,10 +22,10 @@ export default function App() {
 
   };
 
-  // call hello world endpoint
-  useEffect(() => {
-    ping_hello_world();
-    }, []);
+  // // call hello world endpoint
+  // useEffect(() => {
+  //   ping_hello_world();
+  //   }, []);
 
   return (
     <NavigationContainer>
