@@ -36,11 +36,11 @@ def add_restaurant():
     supabase.table('restaurant').insert(data).execute()
     return make_response(jsonify(data), 200)
 
-@bp.route('/restaurant_order_info/<restaurant_id>', methods=['GET'])
+@bp.route('/restaurant_order_info', methods=['GET'])
 def get_restaurant_order_info(restaurant_id):
     supabase = create_client(url, key)
     data, count = supabase.table('orders').select(('order_id, date, restaurant_id')).eq('restaurant_id', '1').execute()
-    name, x = supabase.table('restaurant').select('name').eq('restaurant_id', '1').execute()
+    name, x = supabase.table('restaurant').select('name')
 
     x, items = data
 
