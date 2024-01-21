@@ -8,3 +8,5 @@ backend/Blueprints/__pycache__/foodBankBlueprint.cpython-311.pyc
 backend/Blueprints/__pycache__/modelBlueprint.cpython-311.pyc
 backend/Blueprints/__pycache__/restaurantBlueprint.cpython-311.pyc
 backend/Blueprints/__pycache__/modelBlueprint.cpython-311.pyc
+backend/Blueprints/__pycache__/modelBlueprint.cpython-311.pyc
+*.pyc
