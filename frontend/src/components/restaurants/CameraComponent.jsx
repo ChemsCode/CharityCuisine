@@ -5,6 +5,7 @@ import { View } from "react-native";
 import Button from "../general/Button";
 import { StyleSheet, Text, Image } from "react-native";
 import ApiManager from "./../../ApiManager/ApiManager";
+import { API_URL } from '@env';
 
 export default CameraComponent = () => {
     const [hasPermission, setHasPermission] = useState(null);
@@ -21,38 +22,52 @@ export default CameraComponent = () => {
         })();
     }, []);
 
+    const uploadImage = async (formData) => {
+        console.log('Uploading image');
+        try {
+            const response = await fetch(`${API_URL}/models/upload`, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            const responseJson = await response.json();
+            console.log('Upload successful', responseJson);
+        } catch (error) {
+            console.log('Error uploading image', error);
+        }
+    };
+    
+
     const takePicture = async () => {
         if (cameraRef) {
             try {
+                // Take picture and get data
                 const data = await cameraRef.current.takePictureAsync();
-                console.log(data.uri);
+                // Save image to state and prepare FormData for sending
                 setImage(data.uri);
             } catch (error) {
                 console.log("Error taking picture", error);
             }
         }
     };
-
-    const saveImage = async () => {
-        if (image) {
-            try {
-                await MediaLibrary.createAssetAsync(image);
-                alert("Image saved successfully");
-                setImage(null);
-            } catch (error) {
-                console.log("Error saving picture", error);
-            }
-        }
-    };
+    
 
     const sendImage = async () => {
         if (image) {
             try {
-                const response = await ApiManager.uploadImage(image);
-                console.log(response);
-                setImage(null);
+                const formData = new FormData();
+                formData.append('image', {
+                    uri: image,
+                    type: 'image/jpeg', // or the correct type of your image
+                    name: 'image.jpg',
+                });
+
+                // Send image to server
+                uploadImage(formData);
             } catch (error) {
-                console.log("Error saving picture", error);
+                console.log("Error sending picture", error);
             }
         }
     };
