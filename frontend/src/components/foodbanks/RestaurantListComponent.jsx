@@ -21,14 +21,14 @@ const ExpandableListItem = ({ item, onSelect, isPickedUp }) => {
   };
 
   const handlePickup = () => {
-    onSelect(item.id);
-    Alert.alert('Item picked up!');
+    onSelect(item.restaurant_id);
+    Alert.alert('Item reserved!');
   };
 
   const cancelPickup = () => {
     if (isPickedUp) {
       // Remove the item from the pickup list
-      onSelect(item.id);
+      onSelect(item.restaurant_id);
       Alert.alert('Item canceled.');
     }
   };
@@ -53,8 +53,11 @@ const ExpandableListItem = ({ item, onSelect, isPickedUp }) => {
       </TouchableOpacity>
       {expanded && (
         <View style={styles.itemContent}>
+            <Text style={styles.textContent}>
+                {item.opening_hour} - {item.closing_hour}
+            </Text>
           <Text style={styles.textContent}>
-            {item.content}
+            {item.location}
           </Text>
           <View style={styles.buttonsContainer}>
             <Pressable
@@ -69,7 +72,7 @@ const ExpandableListItem = ({ item, onSelect, isPickedUp }) => {
                 onPress={handlePickup}
                 disabled={isPickedUp}
             >
-                <Text style={styles.buttonText}> Pickup </Text>
+                <Text style={styles.buttonText}> Reserve </Text>
             </Pressable>
           </View>
         </View>
@@ -80,6 +83,7 @@ const ExpandableListItem = ({ item, onSelect, isPickedUp }) => {
 
 const RestaurantListComponent = () => {
   const [selectedItemIds, setSelectedItemIds] = useState([]);
+  const [selectedItemNames, setSelectedItemNames] = useState([]);
   const [visible, setVisible] = React.useState(true);
   const navigation = useNavigation();
   const [restaurants, setRestaurants] = useState(null);
@@ -100,6 +104,7 @@ const RestaurantListComponent = () => {
     } else {
       // Add the item to the pickup list
       setSelectedItemIds((prevIds) => [...prevIds, itemId]);
+      setSelectedItemNames((prevNames) => [...prevNames, restaurants.find((item) => item.restaurant_id === itemId).name]);
     }
   };
 
@@ -108,13 +113,13 @@ const RestaurantListComponent = () => {
   }, [selectedItemIds]);
 
   const navigateToSelectedItems = () => {
-    navigation.navigate('SelectedRestaurants', { selectedIds: selectedItemIds });
+    navigation.navigate('SelectedRestaurants', { selectedIds: selectedItemIds, selectedNames: selectedItemNames });
   };
 
   const isPickedUp = (itemId) => selectedItemIds.includes(itemId);
 
   const renderExtendedRestaurant = ({ item }) => (
-    <ExpandableListItem item={item} onSelect={handleSelect} isPickedUp={isPickedUp(item.id)} />
+    <ExpandableListItem item={item} onSelect={handleSelect} isPickedUp={isPickedUp(item.restaurant_id)} />
   );
 
   return (

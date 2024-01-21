@@ -144,6 +144,10 @@ const ListScreen = () => {
             flexDirection: 'row',
             marginRight: 20,
         },
+        separator: {
+            height: 1,
+            backgroundColor: '#dddddd',
+        },
     });
 
     return (
@@ -159,6 +163,7 @@ const ListScreen = () => {
                                 </View>
                             </View>
                         </TouchableHighlight>
+                        <View style={styles.separator} />
                     </View>
                 ))
             )}

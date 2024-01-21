@@ -1,22 +1,25 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import Logo from '../components/Logo';
 
 const Home = ({ navigation }) => {
     const handleRestaurantPress = () => {
-        navigation.navigate('RestaurantScreen');
+        navigation.navigate('Restaurant');
     };
 
     const handleFoodBankPress = () => {
-        navigation.navigate('FoodBankScreen'); 
+        navigation.navigate('FoodBank'); 
     };
 
     return (
         <View style={styles.container}>
 
+            <Logo style={styles.img} />
+
             <Text style={styles.title}>Charity Cuisine</Text>
             <Text style={styles.tagline}>Connecting you with the best places to eat and help.</Text>
 
-            <Text style={styles.subtitle}>Choose an Option:</Text>
+            {/* <Text style={styles.subtitle}>Choose an Option:</Text> */}
             
             <TouchableOpacity style={styles.optionButton} onPress={handleRestaurantPress}>
                 <Text style={styles.optionText}>Restaurant</Text>
@@ -32,7 +35,6 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#f5f5f5',
         paddingHorizontal: 20,
@@ -40,20 +42,20 @@ const styles = StyleSheet.create({
     logo: {
         width: 100,
         height: 100,
-        marginBottom: 20,
     },
     title: {
         fontSize: 28,
         fontWeight: 'bold',
         color: '#333',
         textAlign: 'center',
+        marginBottom: 10,
     },
     tagline: {
         fontSize: 16,
         color: '#666',
         textAlign: 'center',
         paddingHorizontal: 30,
-        marginBottom: 30,
+        marginBottom: 50,
     },
     subtitle: {
         fontSize: 20,
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     optionButton: {
-        backgroundColor: '#eaeaea', // Neutral color for buttons
+        backgroundColor: '#0f690c', // Neutral color for buttons
         paddingVertical: 12,
         paddingHorizontal: 30,
         borderRadius: 10, // Reduced radius
@@ -78,7 +80,12 @@ const styles = StyleSheet.create({
     optionText: {
         fontSize: 20,
         fontWeight: '500',
-        color: '#333',
+        color: '#ffff',
+    },
+    img: {
+        width: 300,
+        height: 300,
+        marginTop: 0,
     },
 });
 

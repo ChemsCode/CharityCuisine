@@ -47,7 +47,6 @@ const MapComponent = () => {
 
 
     const onRegionChange = (newRegion) => {
-        setRegion(newRegion);
         console.log(newRegion);
     };
 
