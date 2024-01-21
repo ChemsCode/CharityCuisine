@@ -8,6 +8,7 @@ import MapComponent from './src/components/foodbanks/MapComponent';
 import ApiManager from './src/ApiManager/ApiManager'
 // environment variables
 import { API_URL } from '@env';
+import RestaurantListComponent from './src/components/foodbanks/RestaurantListComponent';
 
 function HomeScreen() {
   return (
@@ -63,7 +64,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Restaurants" component={RestaurantListComponent} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
         <Tab.Screen name="Map" component={MapComponent} />
       </Tab.Navigator>
