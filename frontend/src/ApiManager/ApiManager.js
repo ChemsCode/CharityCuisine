@@ -1,3 +1,4 @@
+import axios from "axios";
 import ApiMethods from "./ApiMethods"
 import ENDPOINTS from "./EndPoints"
 import { API_URL } from '@env';
@@ -23,6 +24,18 @@ class ApiManager{
     static restaurantInfo = (restaurant_id) => {
         const url = BASE_URL + ENDPOINTS.RESTAURANT_INFO(restaurant_id);
         return ApiMethods.get(url);
+    }
+    
+    static uploadImage = (image) => {
+        const url = BASE_URL + ENDPOINTS.UPLOAD_IMAGE();
+        let formData = new FormData();
+        formData.append('file', image);
+        
+        return axios.post(url, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     }
 }
 
