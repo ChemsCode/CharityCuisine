@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CameraComponent from '../components/restaurants/CameraComponent';
+import LeaderboardComponent from '../components/foodbanks/LeaderboardComponent';
 
 const Tab = createBottomTabNavigator();
 
@@ -10,7 +11,7 @@ const RestaurantScreen = () => {
         <Tab.Navigator>
             <Tab.Screen name="List" component={ListScreen} />
             <Tab.Screen name="Camera" component={CameraComponent} />
-            <Tab.Screen name="Leaderboard" component={LeaderboardScreen} />
+            <Tab.Screen name="Leaderboard" component={LeaderboardComponent} />
         </Tab.Navigator>
     );
 };
