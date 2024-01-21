@@ -3,8 +3,8 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 from supabase import create_client, Client
-from backend.Blueprints.modelBlueprint import bp as modelsBP
-from backend.Blueprints.restaurantBlueprint import bp as restaurantBP
+from blueprints.modelBlueprint import bp as modelsBP
+from blueprints.restaurantBlueprint import bp as restaurantBP
 
 def create_app():
     load_dotenv()
