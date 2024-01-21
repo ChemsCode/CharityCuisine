@@ -8,7 +8,6 @@ model = None
 
 @bp.route('/upload', methods=['POST'])
 def predict():
-    # grab image from form data
     file = request.files['image']
     file = Image.open(file)
     
