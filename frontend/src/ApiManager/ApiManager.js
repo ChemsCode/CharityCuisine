@@ -10,6 +10,20 @@ class ApiManager{
         return ApiMethods.get(url);
     }
     
+    static allRestaurants = () => {
+        const url = BASE_URL + ENDPOINTS.ALL_RESTAURANTS();
+        return ApiMethods.get(url);
+    }
+
+    static allFoods = (restaurant_id) => {
+        const url = BASE_URL + ENDPOINTS.ALL_FOODS(restaurant_id);
+        return ApiMethods.get(url);
+    }
+
+    static restaurantInfo = (restaurant_id) => {
+        const url = BASE_URL + ENDPOINTS.RESTAURANT_INFO(restaurant_id);
+        return ApiMethods.get(url);
+    }
 }
 
 export default ApiManager;

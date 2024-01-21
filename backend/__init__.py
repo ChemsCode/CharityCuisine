@@ -1,16 +1,18 @@
 from flask import Flask, jsonify, make_response
 from flask_cors import CORS
-import psycopg2
 from dotenv import load_dotenv
 import os
 from supabase import create_client, Client
+from backend.Blueprints.modelBlueprint import bp as modelsBP
+from backend.Blueprints.restaurantBlueprint import bp as restaurantBP
 
-
-
-def create_app(test_config=None):
-    app = Flask(__name__)
-
+def create_app():
     load_dotenv()
+    
+    app = Flask(__name__)
+    app.register_blueprint(modelsBP)
+    app.register_blueprint(restaurantBP)
+
 
     # PostgreSQL connection parameters
     url: str = os.environ.get("SUPABASE_URL")
@@ -34,6 +36,7 @@ def create_app(test_config=None):
         
         # Use 'from' method to interact with the table
         data, count = supabase.table(table_name).select('*').execute()
+        print(data)
         
         return make_response(jsonify(data), 200)
 
