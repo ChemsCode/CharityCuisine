@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MapComponent from './components/foodbanks/MapComponent';
+import MapComponent from './src/components/foodbanks/MapComponent';
 import ApiManager from './src/ApiManager/ApiManager'
 // environment variables
 import { API_URL } from '@env';
